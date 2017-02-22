@@ -16,6 +16,16 @@ spring:
           url: http://repo.spring.io/snapshot
     launcher:
       deployables:
+        scs-security-server: 
+          coordinates: maven://org.springframework.cloud.launcher:spring-cloud-services-launcher-security-server:${dt.ver}
+          port: 8989
+          waitUntilStarted: true
+          order: -200
+          properties:
+            spring.cloud.deployer.memory: ${dt.mem}
+            spring.cloud.deployer.local.javaOpts: ${dt.opts}
+          application-properties:
+            management.security.enabled: false            
         configserver:
           coordinates: ${dt.pre}configserver:${dt.ver}
           port: 8888
@@ -95,6 +105,11 @@ spring:
   cloud:
     launcher:
       deployables:
+        scs-security-server: 
+          properties:
+            spring.cloud.deployer.thin.profile: rabbit
+          application-properties:
+            spring.cloud.bus.enabled: true
         configserver:
           properties:
             spring.cloud.deployer.thin.profile: rabbit
